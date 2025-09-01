@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ABC.app
 {
+    [ExcludeFromCodeCoverage]
     internal class Program
     {
         static void Main(string[] args)
         {
             var calc = new Calculator();
             int a = 5, b = 7;
+ 
 
             Console.WriteLine("ABC Console Demo");
             Console.WriteLine($"Add({a}, {b}) = {calc.Add(a, b)}");
