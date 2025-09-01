@@ -3,7 +3,7 @@ name: SonarCloud Analysis new
 on:
   push:
     branches:
-      - main   # agar tum master branch use karte ho to yahan master likho
+      - master   # agar tum master branch use karte ho to yahan master likho
   pull_request:
     types: [opened, synchronize, reopened]
 
