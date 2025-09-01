@@ -25,18 +25,20 @@ jobs:
         run: dotnet tool install --global dotnet-sonarscanner
 
       - name: SonarCloud Begin
-        run: dotnet sonarscanner begin /k:"Kajal2001sengar_ABC.app" /o:"kajal2001sengar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
+        #run: dotnet sonarscanner begin /k:"Kajal2001sengar_ABC.app" /o:"kajal2001sengar" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.cs.opencover.reportsPaths=**/coverage.opencover.xml
+        run: |
+          dotnet sonarscanner begin /k:"Kajal2001sengar_ABC.app" /o:"kajal2001sengar-1" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=**/TestResults/coverage.opencover.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Restore dependencies
-        run: dotnet restore ./ABC.app/ABC.sln
+        run: dotnet restore ./ABC.app/ABC.app.sln
 
       - name: Build
-        run: dotnet build ./ABC.app/ABC.sln --no-restore
+        run: dotnet build ./ABC.app/ABC.app.sln --no-restore
 
       - name: Run Tests with Coverage
-        run: dotnet test ./ABC.app/ABC.sln --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CollectCoverage=true /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover
+        run: dotnet test ./ABC.app/ABC.app.sln --no-build --collect:"XPlat Code Coverage" --results-directory ./TestResults /p:CollectCoverage=true /p:CoverletOutput=./TestResults/coverage.opencover.xml /p:CoverletOutputFormat=opencover
 
       - name: SonarCloud End
         run: dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
